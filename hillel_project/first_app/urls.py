@@ -5,11 +5,28 @@ from first_app.views import func_views, generic_views
 
 urlpatterns = [
     # path('employees/', func_views.employee_list, name='employee_list'),
-    path('employees/', cache_page(60)(generic_views.EmployeeListView.as_view()), name='employee_list'),
-    path('employees/<int:pk>/', generic_views.EmployeeDetailsView.as_view(), name='employee_details'),
-    path('employees/update/<int:pk>/', generic_views.EmployeeUpdateView.as_view(), name='employee_update'),
-    path('employees/delete/<int:pk>/', func_views.employee_delete, name='employee_delete'),
-    path('querysets/', func_views.queryset_route, name='querysets'),
-    path('salary-calculator/', generic_views.SalaryCalculatorView.as_view(), name="salary_calc")
-
+    path(
+        "employees/",
+        generic_views.EmployeeListView.as_view(),
+        name="employee_list",
+    ),
+    path(
+        "employees/<int:pk>/",
+        cache_page(180)(generic_views.EmployeeDetailsView.as_view()),
+        name="employee_details",
+    ),
+    path(
+        "employees/update/<int:pk>/",
+        generic_views.EmployeeUpdateView.as_view(),
+        name="employee_update",
+    ),
+    path(
+        "employees/delete/<int:pk>/", func_views.employee_delete, name="employee_delete"
+    ),
+    path("querysets/", func_views.queryset_route, name="querysets"),
+    path(
+        "salary-calculator/",
+        cache_page(120)(generic_views.SalaryCalculatorView.as_view()),
+        name="salary_calc",
+    ),
 ]

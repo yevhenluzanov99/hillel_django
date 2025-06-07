@@ -5,10 +5,24 @@
 {% block title %}{% trans 'Home' %}{% endblock title %}
 
 {% block content %}
-<div class="header">
-    <img src="{% static 'img/logo.png' %}" alt="Logo">
-    <h1>Welcome to HR System</h1>
+
+
+
+<div class="row">
+  {% for company in companies %}
+    <div class="col-md-3 text-center mb-4">
+      {% if company.logo %}
+        <img src="{{ company.logo.url }}" class="img-fluid rounded" alt="{{ company.name }}">
+      {% else %}
+        <img src="{% static 'img/logo.png' %}" class="img-fluid rounded" alt="No Logo">
+      {% endif %}
+      <p class="mt-2"><strong>{{ company.name }}</strong></p>
+    </div>
+  {% empty %}
+    <p>{% trans "No companies found." %}</p>
+  {% endfor %}
 </div>
+
 
 <div class="jumbotron">
   <h1 class="display-4">{% trans 'Welcome!' %}</h1>
